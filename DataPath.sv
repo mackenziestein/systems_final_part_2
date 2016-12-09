@@ -26,17 +26,28 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign adderIn2 = constant4;
    assign pcPlus4 = adderOut;
   
-   // INSTRUCTION MEMORY
-
+   // INSTRUCTION AND DATA MEMORY
+   // input logic addr, writeData, clk, writeEnable
+   // output logic read
    logic [31:0] instA;
-   
-   instructionMemory imem(instA,instr);
+   logic [31:0] ALUResult, dataA, WD;
+   logic [0:0] 	WE;
 
-   assign instA = pcQ;
+   assign dataA = ALUResult;
+   assign instA = pcQ; // this needs to be changed - either the output from the ALU or the output from the PC register
+   
+   // dataMemory data(dataA, RD, WD, clk, WE);
+   // instructionMemory imem(instA,instr);
+
+   combinedMemroy idmem(instA, instr, WD, clk, WE);
+   
 
    // CONTROL UNIT
 
    logic [0:0] 	memToReg, memWrite, branchEnable, ALUSrc, regDst, jump, jumpReg, alu4, alu3, alu2, alu1, alu0;
+   // new control lines:
+   logic [0:0] 	PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB;
+   
    logic [4:0] 	ALUControl;  
    
    Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, alu4, alu3, alu2, alu1, alu0);
@@ -79,8 +90,8 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
   //ALU THINGS
 
-   logic [31:0]        SrcA, SrcB, ALUResult;
-   logic [31:0]        muxSrcBin, Result, WD, dataA, muxBranchOut;
+   logic [31:0]        SrcA, SrcB;
+   logic [31:0]        muxSrcBin, Result, muxBranchOut;
    
    mux4to1B32 muxRD2(1'b0, ALUSrc, 32'b0, 32'b0, SignImm, RD2, muxSrcBin);
 
@@ -88,12 +99,6 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign SrcA = RD1;
 
    ALU theALU(SrcA, SrcB, ALUControl, ALUResult);    
-   
-   logic [0:0] 	       WE;
-
-   assign dataA = ALUResult;
-   
-   dataMemory data(dataA, RD, WD, clk, WE);
 
    mux4to1B32 muxRD(jump, memToReg, 32'b0, pcPlus4, RD, ALUResult, Result);
 
