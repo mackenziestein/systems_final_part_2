@@ -1,0 +1,7 @@
+Project by:
+Laura Schmidlein
+Mackenzie Stein
+
+
+As far as we know, everything works.
+All eleven instructions run successfully, in particular as they are written in instructionMemory2016.
