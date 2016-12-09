@@ -50,7 +50,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    logic [4:0] 	ALUControl;  
    
-   Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, alu4, alu3, alu2, alu1, alu0);
+   Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
    
    //REGISTER FILE 
    
