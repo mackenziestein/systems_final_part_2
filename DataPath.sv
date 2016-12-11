@@ -47,7 +47,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    // CONTROL UNIT
     
-   Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+   Control theControl(clock, instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
    
    // INSTRUCTION AND DATA MEMORY
    
