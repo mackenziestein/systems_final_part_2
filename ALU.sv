@@ -1,6 +1,4 @@
-/*
-As you are given it, this ALU only implements Add
-  */
+//need to use ALU for adding and 
 
 module ALU(input logic  [31:0] I1,
 

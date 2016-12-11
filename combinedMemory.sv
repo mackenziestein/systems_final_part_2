@@ -25,14 +25,14 @@ begin
    instructs[15] = 32'b010000_00010_00001_00000_00000_000001; // bleu r2,r1, m3      branch
    instructs[16] = 32'b111111_00001_00000_00011_00000_000000; // nonsense instruction
    instructs[17] = 32'b001110_00010_00010_00000_00000_001010; // m3: nori $2, $2 , $000a  r2 <-fffffff5
-    instructs[18] = 32'b111111_00001_00000_00011_00000_000000; // nonsense instruction
+   instructs[18] = 32'b111111_00001_00000_00011_00000_000000; // nonsense instruction
    instructs[19] = 32'b001000_00111_00000_00000_00000_000000; // m2: jr $7   return to first bleu
- 
-instructs[32] = 12;
-instructs[33] = 10;
-instructs[34] = 15;
-instructs[35] = 99;
-instructs[36] = 99;
+   
+   instructs[32] = 12;
+   instructs[33] = 10;
+   instructs[34] = 15;
+   instructs[35] = 99;
+   instructs[36] = 99;
    instructs[37] = 0;
 
 end
