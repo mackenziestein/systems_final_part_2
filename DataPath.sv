@@ -11,7 +11,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    output logic [0:0]  regWriteEnable;
    logic [31:0]        pcPlus4, constant4;
    
-   enabledRegister PC(pcD,pcQ,clock,1'b1);
+   // enabledRegister PC(pcD,pcQ,clock,1'b1);
 
    initial
      constant4 <= 32'b100;
@@ -25,7 +25,17 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign adderIn1 = pcQ;
    assign adderIn2 = constant4;
    assign pcPlus4 = adderOut;
-  
+
+   // CONTROL UNIT
+
+   logic [0:0] 	memToReg, memWrite, branchEnable, ALUSrc, regDst, jump, jumpReg, alu4, alu3, alu2, alu1, alu0;
+   // new control lines:
+   logic [0:0] 	PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB;
+   
+   logic [4:0] 	ALUControl;  
+   
+   Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+   
    // INSTRUCTION AND DATA MEMORY
    // input logic addr, writeData, clk, writeEnable
    // output logic read
@@ -39,18 +49,9 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // dataMemory data(dataA, RD, WD, clk, WE);
    // instructionMemory imem(instA,instr);
 
-   combinedMemroy idmem(instA, instr, WD, clk, WE);
+   mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUOut, pcQ, insta);
    
-
-   // CONTROL UNIT
-
-   logic [0:0] 	memToReg, memWrite, branchEnable, ALUSrc, regDst, jump, jumpReg, alu4, alu3, alu2, alu1, alu0;
-   // new control lines:
-   logic [0:0] 	PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB;
-   
-   logic [4:0] 	ALUControl;  
-   
-   Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+   combinedMemroy idmem(instA, instr, WD, clk, WE); 
    
    //REGISTER FILE 
    
@@ -91,7 +92,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
   //ALU THINGS
 
    logic [31:0]        SrcA, SrcB;
-   logic [31:0]        muxSrcBin, Result, muxBranchOut;
+   logic [31:0]        muxSrcBin, Result, muxBranchOut, ALUOut;
    
    mux4to1B32 muxRD2(1'b0, ALUSrc, 32'b0, 32'b0, SignImm, RD2, muxSrcBin);
 
@@ -106,6 +107,9 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign WD = RD2;
    assign WE = memWrite;
 
+   enabledRegister(ALUResult, ALUOut, clock, 1'b1);
+   
+
    //PC THINGS
 
    mux4to1B32 muxBranch(1'b0, PCBranch[31], 32'b0, 32'b0, SignImm, pcPlus4, muxBranchOut);
@@ -117,7 +121,12 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    mux8to1B32 muxPC(branchEnable, jump, jumpReg, 32'b0, 32'b0, 32'b0, muxBranchOut, PCJumpReg, PCJump, 32'b0, pcPlus4, PCNext);
    
-   assign pcD = PCNext;
+   // assign pcD = PCNext;
+   assign pcD = ALUResult;
+   
+
+   enabledRegister PCWrite(pcD, pcQ, clock, PCWrite);
+   
 
 
 always @ (negedge clock) begin

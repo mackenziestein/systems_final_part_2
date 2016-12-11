@@ -1,7 +1,7 @@
-module Control(ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+module Control(ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
 
    input logic [31:0] ins;
-   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorO, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0; 
+   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0; 
    output logic [4:0] ALUControl;
    
    logic [0:0] andr, lw, sw, jr, jal, norr, nori, notr, bleu, rolv, rorv;
@@ -35,7 +35,7 @@ module Control(ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst
    assign jumpReg = jr;
    
    assign PCWrite = 1'b0;
-   assign IorO = 1'b0;
+   assign IorD = 1'b0;
    assign IRWrite = 1'b0;
    assign ALUSrcA = 1'b0;
    assign ALUSrcB = 1'b0;
