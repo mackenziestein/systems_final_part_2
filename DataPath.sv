@@ -5,11 +5,8 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // make debugging easier  
 
    input logic clock;
-   output logic [31:0] instr;
-   output logic [31:0] pcQ;
-   output logic [31:0] pcD;
+   output logic [31:0] instr, pcQ, pcD, pcPlus4, constant4;
    output logic [0:0]  regWriteEnable;
-   logic [31:0]        pcPlus4, constant4;
    // adder
    logic [31:0]        adderIn1, adderIn2, adderOut;
    // control unit
@@ -18,20 +15,16 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    logic [0:0] 	       PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB;
    logic [4:0] 	       ALUControl;
    // memory
-   logic [31:0]        instA;
-   logic [31:0]        ALUResult, dataA, WD;
+   logic [31:0]        instA, ALUResult, dataA, WD;
    logic [0:0] 	       WE;
    // register file
-   logic [4:0] 	       A3, A2, A1;
+   logic [4:0] 	       A3, A2, A1, RsOrRt, A3assign, r7default;
    logic 	       WE3, clk;
-   logic [31:0]        WD3, RD1, RD2;
-   logic [31:0]        RD;
-   logic [4:0] 	       RsOrRt, A3assign, r7default;
+   logic [31:0]        WD3, RD1, RD2  RD;
    logic [31:0]        SignImm, signImm22, pc4AdderIn, branchAdderOut, PCBranch;
    logic [1:0] 	       constant0;
    // ALU
-   logic [31:0]        SrcA, SrcB;
-   logic [31:0]        muxSrcBin, Result, muxBranchOut, ALUOut;
+   logic [31:0]        SrcA, SrcB, muxSrcBin, Result, muxBranchOut, ALUOut;
    // jump and branch
    logic [31:0]        PCJump, jumpInst, PCNext, PCJumpReg;
 
