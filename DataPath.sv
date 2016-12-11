@@ -69,16 +69,18 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);
    
        // old things
-   assign r7default = 5'b11111;
+   //assign r7default = 5'b11111;
    
-   mux2to1B5 muxA3(regDst, instr[15:11], instr[20:16], RsOrRt);
-   mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign);
-   mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUOut, WD3)
+   mux2to1B5 muxA3(regDst, instr[15:11], instr[20:16], A3assign);
+ //  mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign); DO WE NEED THIS????
+   mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUOut, WD3);
+   
    
    assign clk = clock; // WHY DO WE DO THIS? WHY NOT JUST USE CLOCK?
    assign A1 = instr[25:21];
-   assign A3 = A3assign;  // A3 is either 20:16 or 15:11, based on RegDst
    assign A2 = instr[20:16];
+   assign A3 = A3assign;  // A3 is either 20:16 or 15:11, based on RegDst
+ 
    assign WE3 = regWriteEnable;
    
    assign constant0 = 2'b0;
@@ -101,7 +103,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    ALU theALU(SrcA, SrcB, ALUControl, ALUResult);    
 
-   mux4to1B32 muxRD(jump, memToReg, 32'b0, pcPlus4, RD, ALUResult, Result);
+  // ignore dis for now  mux4to1B32 muxRD(jump, memToReg, 32'b0, pcPlus4, RD, ALUResult, Result);
 
    assign WD = RDB;
    assign WE = memWrite;
