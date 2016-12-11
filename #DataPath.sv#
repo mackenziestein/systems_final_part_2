@@ -14,8 +14,10 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    logic [0:0] 	       memToReg, memWrite, branchEnable, ALUSrc, regDst, jump, jumpReg, alu4, alu3, alu2, alu1, alu0;
    // new control lines:
    logic [0:0] 	       PCWrite, IorD, IRWrite, ALUSrcA;
-   logic [1:0] 	       ALUSrcB;
+   logic [1:0] 	       ALUSrcB; PCSrc;
+   
    logic [4:0] 	       ALUControl;
+   
    // memory
    logic [31:0]        instA, ALUResult, dataA, WD, instrFromMem;
    logic [0:0] 	       WE;
@@ -28,7 +30,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // ALU
    logic [31:0]        SrcA, SrcB, muxSrcBin, Result, muxBranchOut, ALUOut, RDA, RDB, SrcAIn, SrcBIn;
    // jump and branch
-   logic [31:0]        PCJump, jumpInst, PCNext, PCJumpReg;
+   logic [31:0]        PCJump, jumpInst, PCNext, PCJumpReg;     
 
    
    // enabledRegister PC(pcD,pcQ,clock,1'b1);
@@ -47,7 +49,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    // CONTROL UNIT
     
-   Control theControl(clock, instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+   Control theControl(instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
    
    // INSTRUCTION AND DATA MEMORY
    
@@ -85,6 +87,8 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    assign constant0 = 2'b0;
    assign SignImm = {{16{instr[15]}}, instr[15:0]};
+
+   
    
    //ALU THINGS
 
@@ -124,12 +128,13 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    assign PCJump = {pcQ[31:28], instr[25:0], constant0[1:0]};
    assign PCJumpReg = RD1;
+
    
    mux8to1B32 muxPC(branchEnable, jump, jumpReg, 32'b0, 32'b0, 32'b0, muxBranchOut, PCJumpReg, PCJump, 32'b0, pcPlus4, PCNext);
    
    // assign pcD = PCNext;
 
-   mux4to1B32 PCSource(1'b0, PCSrc, 32'b0, 32'b0, ALUOut, ALUResult, PCmux);
+   mux4to1B32 PCSource(PCSrc[1], PCSrc[0], 32'b0, PCJump, ALUOut, ALUResult, PCmux);
    assign pcD = PCmux;   
    enabledRegister PCWriteReg(pcD, pcQ, clock, PCWrite);
    
