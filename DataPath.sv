@@ -5,7 +5,8 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // make debugging easier  
 
    input logic clock;
-   output logic [31:0] instr, pcQ, pcD, pcPlus4, constant4;
+   output logic [31:0] instr, pcQ, pcD;
+   logic [31:0] pcPlus4, constant4;
    output logic [0:0]  regWriteEnable;
    // adder
    logic [31:0]        adderIn1, adderIn2, adderOut;
@@ -20,7 +21,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // register file
    logic [4:0] 	       A3, A2, A1, RsOrRt, A3assign, r7default;
    logic 	       WE3, clk;
-   logic [31:0]        WD3, RD1, RD2  RD, dataOut;
+   logic [31:0]        WD3, RD1, RD2, RD, dataOut;
    logic [31:0]        SignImm, signImm22, pc4AdderIn, branchAdderOut, PCBranch;
    logic [1:0] 	       constant0;
    // ALU
@@ -51,7 +52,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    assign dataA = ALUResult;
    mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUOut, pcQ, instA);
-   combinedMemroy idmem(instA, instrFromMem, WD, clk, WE); 
+   combinedMemory idmem(instA, instrFromMem, WD, clk, WE); 
    
    //assign instA = pcQ; // this needs to be changed - either the output from the ALU or the output from the PC register
    // dataMemory data(dataA, RD, WD, clk, WE);
@@ -64,7 +65,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
        // new things
    enabledRegister instructionIn(instrFromMem, instr, clock, IRWrite);
-   enabledRegister instructionIn(instrFromMem, dataOut, clock, 1'b1);
+   enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);
    
        // old things
    assign r7default = 5'b11111;
@@ -127,7 +128,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign pcD = ALUResult;
    
 
-   enabledRegister PCWrite(pcD, pcQ, clock, PCWrite);
+   enabledRegister PCWriteReg(pcD, pcQ, clock, PCWrite);
    
 
 
