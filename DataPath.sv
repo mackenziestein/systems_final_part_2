@@ -53,7 +53,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    assign dataA = ALUResult;
    mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUResult, pcQ, instA); // ALURESULT SHOULD BE ALUOUT
-   combinedMemory idmem(instA, instrFromMem, WD, clk, WE); 
+   combinedMemory idmem(instA, instrFromMem, WD, clk, WE);  // !!!!!!!!!!!!!! INSTA IS DYING
    
    //assign instA = pcQ; // this needs to be changed - either the output from the ALU or the output from the PC register
    // dataMemory data(dataA, RD, WD, clk, WE);
@@ -66,7 +66,10 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
        // new things
    enabledRegister instructionIn(instrFromMem, instr, clock, IRWrite);
-   enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);
+   //assign instr = instrFromMem;
+   
+   //enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);
+   assign dataOut = instrFromMem;
    
        // old things
    
@@ -87,9 +90,12 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    //ALU THINGS
 
-   enabledRegister RD1Out(RD1, RDA, clock, 1'b1);
-   enabledRegister RD2Out(RD2, RDB, clock, 1'b1);
-      
+   //enabledRegister RD1Out(RD1, RDA, clock, 1'b1);
+   assign RDA = RD1;
+   //enabledRegister RD2Out(RD2, RDB, clock, 1'b1);
+   assign RDB = RD2;
+   
+   
    assign SignImm22 = {SignImm[29:0], constant0};
    mux4to1B32 ALUA(1'b0, ALUSrcA, 32'b0, 32'b0, RDA, pcQ, SrcAIn);
    mux4to1B32 ALUB(ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn);
@@ -137,22 +143,58 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
 
 always @ (negedge clock) begin
+   $display("---------------pcd %b", pcD);
+   $display("---------------PCWrite %b", PCWrite);
+   $display("---------------pcsrc %b", PCSrc);
+   
+   $display("pcq %b", pcQ);
+   $display("alu result %b", ALUResult);
+   //$display("alu res in alu %b", theALU.finalOut);
+   //$display("alu first out %b", theALU.firstOut);
+   //$display("alu sumOut %b", theALU.sumOut);
+   //$display("alu norOut %b", theALU.norOut);
+   //$display("alu norIOut %b", theALU.norIOut);
+   $display("ALU add %b norr %b nori %b notr %b", theALU.add, theALU.norr, theALU.nori, theALU.notr);
+   $display("ALU rolv %b rorv %b bleu %b", theALU.rolv, theALU.rorv, theALU.bleu);
+   $display("CONTROL  andr %b jr %b jal %b norr %b notr %b bleu %b rolv %b rorv %b  be %b nori %b", theControl.andr, theControl.jr, theControl.jal, theControl.norr, theControl.notr, theControl.bleu, theControl.rolv, theControl.rorv, theControl.branchEnable, theControl.nori);
+   $display("lw1 %b sw1 %b lw2 %v sw2 %b", theControl.lw, theControl.sw, theControl.lw2, theControl.sw2);
+   $display("srcb bit 1 %b", theControl.srcB1);
+   $display("srcb bit 0 %b", theControl.srcB0);
+   $display("srcb %b", theControl.ALUSrcB);
+   
+   //$display("I1 %b", theALU.I1);
+   //$display("I2 %b", theALU.I2);
+   //$display("signimm22 %b", SignImm22);
+   //$display("SignImm %b", SignImm);
+   //$display("constant4 %b", constant4);
+   //$display("RDB %b", RDB);
+   $display("IorD %b", IorD);
+   $display("instrfrommem %b", instrFromMem);
+   $display("instA %b", instA);
+   
+   
+   $display("data out %b", dataOut);
+   $display("aluresult %b", ALUResult);
+   
+   
+   // (ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn)
+   
    $display("CONTROL SIGNALS");
    $display("Mem to reg enable : %b", memToReg);
    $display("Mem write enable  : %b", memWrite);
-   $display("Branch enable : %b", branchEnable);
+   //$display("Branch enable : %b", branchEnable);
    $display("ALUControl : %b", ALUControl);
    $display("ALUSrc : %b", ALUSrc);
    $display("Reg Dst : %b", regDst);
-   $display("Jump enable : %b", jump);
-   $display("Jump register enable : %b", jumpReg);
-   $display("Reg 0 write signal %b", theRegisters.yesWrite0);
-   $display("Reg 1 write signal %b", theRegisters.yesWrite1);
-   $display("Reg 2 write signal %b", theRegisters.yesWrite2);
-   $display("Reg 3 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 4 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 5 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 6 write signal %b", theRegisters.yesWrite3);
+   //$display("Jump enable : %b", jump);
+   //$display("Jump register enable : %b", jumpReg);
+   //$display("Reg 0 write signal %b", theRegisters.yesWrite0);
+   //$display("Reg 1 write signal %b", theRegisters.yesWrite1);
+   //$display("Reg 2 write signal %b", theRegisters.yesWrite2);
+   //$display("Reg 3 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 4 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 5 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 6 write signal %b", theRegisters.yesWrite3);
    $display("Reg 7 write signal %b", theRegisters.yesWrite7);
 end // always
    

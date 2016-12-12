@@ -37,14 +37,14 @@ begin
 
 end
 
-assign read = instructs[addr[8:2]];
+assign read = instructs[addr[6:2]];
 
 
 // to do writing, you need an always 
 
 always @(posedge clk)
   begin
-     $display("read address ",addr[8:2]);
+     $display("read address ",addr[6:2]);
      
   if (writeEnable)
     begin

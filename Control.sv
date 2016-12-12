@@ -7,13 +7,21 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    output logic [4:0] ALUControl;
    
    logic [0:0] andr, jr, jal, norr, nori, notr, bleu, rolv, rorv;
-   logic [0:0] lw, sw, lw2, sw2, srcB1, srcB0, PCSrc1, PCSrc0;
+   logic [0:0] lw, sw, lw2, sw2, lwen, swen, srcB1, srcB0, PCSrc1, PCSrc0;
+   logic [31:0] lw32, sw32, lw1out, sw1out;
 
    assign andr = ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ~ins[27] & ~ins[26];
-   assign lw = ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ins[27] & ins[26];
-   mux4to1B1 lwSave(1'b0, lw, 1'b0, 1'b0, lw, clock, lw2);
-   assign sw = ins[31] & ~ins[30] & ins[29] & ~ins[28] & ins[27] & ins[26];
-   mux4to1B1 swSave(1'b0, sw, 1'b0, 1'b0, sw, clock, sw2);  
+   assign lw = ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ins[27] & ins[26] & ~sw2 & ~lw2;
+   assign lw32 = {31'b0, lw};
+   assign lwen = lw | lw2;
+   enabledRegister lwSave(lw32, lw1out, clock, lwen);
+   assign lw2 = lw1out[0];
+   assign sw = ins[31] & ~ins[30] & ins[29] & ~ins[28] & ins[27] & ins[26] & ~lw2 & ~sw2;
+   assign sw32 = {31'b0, sw};
+   assign swen = sw | sw2;
+   enabledRegister swSave(sw32, sw1out, clock, swen);
+   assign sw2 = sw1out[0];
+   
    assign jr = ~ins[31] & ~ins[30] & ins[29] & ~ins[28] & ~ins[27] & ~ins[26];
    assign jal = ~ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ins[27] & ins[26];
    assign norr = ins[31] & ~ins[30] & ~ins[29] & ins[28] & ins[27] & ~ins[26];
@@ -34,17 +42,19 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    assign branchEnable = bleu;
    assign ALUControl = {alu4, alu3, alu2, alu1, alu0};
    assign ALUSrc = nori | lw | sw; // don't need
-   assign regDst = andr | norr | notr | rolv | rorv;
-   assign regWriteEnable = lw2 | andr | norr | nori | notr | rolv | rorv | jal;  
+   assign regDst = andr | norr | notr | rorv;
+   assign regWriteEnable = lw2 | andr | norr | nori | notr | rorv | jal;  
    assign jump = jr | jal;
    assign jumpReg = jr;
    
-   assign PCWrite = ~lw | ~sw;
-   assign IorD = sw2;
-   assign IRWrite = ~lw | ~sw;
-   assign ALUSrcA = nori | lw | sw | lw2 | sw2;
-   assign srcB1 = lw | sw | lw2 | sw2 | branchEnable | nori;
-   assign scrB0 = branchEnable;
+   //assign PCWrite = ~((lw & ~lw2) | (sw & ~sw2));
+   assign PCWrite = ~(lw | sw);
+   assign IorD = lw2 | sw2;
+   assign IRWrite = ~(lw2 | sw2);
+   assign ALUSrcA = ~branchEnable;
+ // nori | lw | sw | lw2 | sw2;
+   assign srcB1 = lw | sw | lw2 | sw2 | branchEnable | nori | jump;
+   assign srcB0 = branchEnable | jump;
    assign ALUSrcB = {srcB1, srcB0};
    assign PCSrc1 = ~branchEnable;
    assign PCSrc0 = ~jal;
