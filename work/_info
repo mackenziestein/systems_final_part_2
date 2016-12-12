@@ -65,15 +65,15 @@ n@control
 R0
 vadder
 R1
-Z16 !s110 1481259353
+Z16 !s110 1481503203
 !i10b 1
 R7
 R8
 R9
 R10
 S1
-R0
-Z17 w1480286834
+Z17 d/home/class19/lschmidlein19/cs112finalB
+Z18 w1481298395
 R11
 R12
 L0 5
@@ -81,44 +81,67 @@ R13
 r1
 !s85 0
 31
-Z18 !s108 1481259353.908496
-R4
-R5
+Z19 !s108 1481503203.137879
+Z20 !s107 tester3.sv|registerFile.sv|oldDP.sv|mux8to1B32.sv|mux4to1B8.sv|mux4to1B5.sv|mux4to1B4.sv|mux4to1B32.sv|mux4to1B1.sv|mux2to1B5.sv|instructionMemory2016.sv|enabledRegister.sv|DataPath.sv|dataMemory.sv|Control.sv|combinedMemory.sv|ALU.sv|adder.sv|
+Z21 !s90 adder.sv|ALU.sv|combinedMemory.sv|Control.sv|dataMemory.sv|DataPath.sv|enabledRegister.sv|instructionMemory2016.sv|mux2to1B5.sv|mux4to1B1.sv|mux4to1B32.sv|mux4to1B4.sv|mux4to1B5.sv|mux4to1B8.sv|mux8to1B32.sv|oldDP.sv|registerFile.sv|tester3.sv|
 !i113 1
 vALU
 R1
 R16
 !i10b 1
-!s100 :BA[oYN575mBco;:GO_a23
-I8V5IT43TomQS7XdCBXb103
+!s100 XM=<o2heTXGXfIEDJRY]F2
+IBF`kngALb`Dang_CSm86m1
 R9
 !s105 ALU_sv_unit
 S1
-R0
-w1481258806
+R17
+w1481298893
 8ALU.sv
 FALU.sv
-L0 5
+L0 3
 R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 n@a@l@u
+vcombinedMemory
+R1
+R16
+!i10b 1
+!s100 aa9SQFJD:6W_5VIGbI:HX3
+IWD94lHLJ>BVz6n=GW9@882
+R9
+!s105 combinedMemory_sv_unit
+S1
+R17
+w1481298537
+8combinedMemory.sv
+FcombinedMemory.sv
+L0 1
+R13
+r1
+!s85 0
+31
+R19
+R20
+R21
+!i113 1
+ncombined@memory
 vControl
 R1
 R16
 !i10b 1
-!s100 `^`E5]mQE@VVd[ER;14]n3
-I[idF5ILo`oa7A`7LHUW>Q1
+!s100 NC=>9gnT4l[m;njMe02NR2
+I:YgiNMN6CN3lM9ei2cHZ@2
 R9
 !s105 Control_sv_unit
 S1
-R0
-w1481258103
+R17
+w1481503089
 R14
 R15
 L0 1
@@ -126,9 +149,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 vdataMemory
 R1
@@ -139,8 +162,8 @@ Id^]0E6>Fg@7CmNjPZha8L3
 R9
 !s105 dataMemory_sv_unit
 S1
-R0
-w1481257284
+R17
+R18
 8dataMemory.sv
 FdataMemory.sv
 L0 3
@@ -148,22 +171,22 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 ndata@memory
 vDataPath
 R1
-R16
+!s110 1481503205
 !i10b 1
-!s100 bIE_5ffSAWAlOX2iITYC^2
-IH^=H8MWgMGDIKj;iD9Umn3
+!s100 [4NI_Hbgi]i5WTZ_N76Cf0
+I6e05NclJZBeCRUL3>:HPV0
 R9
 !s105 DataPath_sv_unit
 S1
-R0
-w1481259339
+R17
+w1481503199
 8DataPath.sv
 FDataPath.sv
 L0 1
@@ -171,9 +194,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+!s108 1481503205.357356
+!s107 DataPath.sv|
+!s90 DataPath.sv|
 !i113 1
 n@data@path
 venabledRegister
@@ -185,8 +208,8 @@ IR1e:k7jJN;]85kbi2MF0S0
 R9
 !s105 enabledRegister_sv_unit
 S1
-R0
 R17
+Z22 w1481298396
 8enabledRegister.sv
 FenabledRegister.sv
 L0 1
@@ -194,22 +217,22 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nenabled@register
 vinstructionMemory
 R1
-!s110 1481259362
+R16
 !i10b 1
 !s100 VW34h6Yc9@XU[mUzLIXBS1
 IBaT;kJUV8?AeINQceK?W^1
 R9
 !s105 instructionMemory2016_sv_unit
 S1
-R0
-w1481256035
+R17
+R22
 8instructionMemory2016.sv
 FinstructionMemory2016.sv
 L0 1
@@ -217,9 +240,9 @@ R13
 r1
 !s85 0
 31
-!s108 1481259362.330150
-!s107 instructionMemory2016.sv|
-!s90 instructionMemory2016.sv|
+R19
+R20
+R21
 !i113 1
 ninstruction@memory
 vmux2to1B5
@@ -231,8 +254,8 @@ IfzA9eOU5UO558NGaXN@_P1
 R9
 !s105 mux2to1B5_sv_unit
 S1
-R0
 R17
+R22
 8mux2to1B5.sv
 Fmux2to1B5.sv
 L0 1
@@ -240,9 +263,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux2to1@b5
 vmux4to1B1
@@ -254,8 +277,8 @@ Ig<4H:1LLYj]5?_9zzl@FT2
 R9
 !s105 mux4to1B1_sv_unit
 S1
-R0
 R17
+R22
 8mux4to1B1.sv
 Fmux4to1B1.sv
 L0 1
@@ -263,9 +286,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux4to1@b1
 vmux4to1B32
@@ -277,8 +300,8 @@ IJTCkoX@>30ln1lTEmNW3J1
 R9
 !s105 mux4to1B32_sv_unit
 S1
-R0
 R17
+R22
 8mux4to1B32.sv
 Fmux4to1B32.sv
 L0 1
@@ -286,9 +309,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux4to1@b32
 vmux4to1B4
@@ -300,8 +323,8 @@ II2ZZYoBl0bcD28LF>S7f02
 R9
 !s105 mux4to1B4_sv_unit
 S1
-R0
 R17
+R22
 8mux4to1B4.sv
 Fmux4to1B4.sv
 L0 1
@@ -309,9 +332,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux4to1@b4
 vmux4to1B5
@@ -323,8 +346,8 @@ I<J==lkdG<0nb?0mAg[V962
 R9
 !s105 mux4to1B5_sv_unit
 S1
-R0
 R17
+R22
 8mux4to1B5.sv
 Fmux4to1B5.sv
 L0 1
@@ -332,9 +355,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux4to1@b5
 vmux4to1B8
@@ -346,8 +369,8 @@ I<AKzOTmR>i5c@i_NJ@DjS2
 R9
 !s105 mux4to1B8_sv_unit
 S1
-R0
 R17
+R22
 8mux4to1B8.sv
 Fmux4to1B8.sv
 L0 1
@@ -355,9 +378,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux4to1@b8
 vmux8to1B32
@@ -369,8 +392,8 @@ IMO<2eO[:A3jD]Ejei>YeL2
 R9
 !s105 mux8to1B32_sv_unit
 S1
-R0
-w1481123445
+R17
+R22
 8mux8to1B32.sv
 Fmux8to1B32.sv
 L0 1
@@ -378,9 +401,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nmux8to1@b32
 vregisterFile
@@ -392,8 +415,8 @@ I]WCaaM7FaLkmQc3Q<jQMb0
 R9
 !s105 registerFile_sv_unit
 S1
-R0
-w1481258419
+R17
+R22
 8registerFile.sv
 FregisterFile.sv
 L0 3
@@ -401,9 +424,9 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1
 nregister@file
 vtester3
@@ -415,8 +438,8 @@ IzSGkK5OTQWR2^chP2Q4<Q2
 R9
 !s105 tester3_sv_unit
 S1
-R0
-w1481257363
+R17
+R22
 8tester3.sv
 Ftester3.sv
 L0 3
@@ -424,7 +447,7 @@ R13
 r1
 !s85 0
 31
-R18
-R4
-R5
+R19
+R20
+R21
 !i113 1

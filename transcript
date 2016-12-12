@@ -1,20 +1,53 @@
 # vsim -lib work -c tester3 
-# Start time: 23:57:05 on Dec 08,2016
+# Start time: 19:40:07 on Dec 11,2016
 # Loading sv_std.std
 # Loading work.tester3
 # Loading work.DataPath
-# Loading work.enabledRegister
+# Loading work.adder
+# Loading work.Control
+# Loading work.mux4to1B1
 # Loading work.mux4to1B32
 # Loading work.mux4to1B4
-# Loading work.mux4to1B1
-# Loading work.adder
-# Loading work.instructionMemory
-# Loading work.Control
+# Loading work.combinedMemory
 # Loading work.registerFile
+# Loading work.enabledRegister
 # Loading work.mux8to1B32
 # Loading work.mux2to1B5
 # Loading work.ALU
-# Loading work.dataMemory
+# REGISTER VALUES
+# register 0 00000000 
+# register 1 00000000 
+# register 2 00000000 
+# register 3 00000000 
+# register 4 00000000 
+# register 5 00000000 
+# register 6 00000000 
+# register 7 00000000 
+# CONTROL SIGNALS
+# Mem to reg enable : 0
+# Mem write enable  : 0
+# Branch enable : 0
+# ALUControl : 00000
+# ALUSrc : 0
+# Reg Dst : 1
+# Jump enable : 0
+# Jump register enable : 0
+# Reg 0 write signal 1
+# Reg 1 write signal 0
+# Reg 2 write signal 0
+# Reg 3 write signal 0
+# Reg 4 write signal 0
+# Reg 5 write signal 0
+# Reg 6 write signal 0
+# Reg 7 write signal 0
+# PC INFO
+# Reg write enable 1
+# PC Address : 00000000
+# PC D: 00000004 
+# Instruction : 00000000
+#  - 
+# read address   0
+# Writing address          0 with          0
 # REGISTER VALUES
 # register 0 00000000 
 # register 1 00000000 
@@ -43,46 +76,15 @@
 # Reg 7 write signal 0
 # PC INFO
 # Reg write enable 1
-# PC Address : 00000000
-# PC D: 00000004 
-# Instruction : 8c010008
-#  - 
-# REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000f 
-# register 2 00000000 
-# register 3 00000000 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
-# CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 1
-# Branch enable : 0
-# ALUControl : 10101
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
-# PC INFO
-# Reg write enable 0
 # PC Address : 00000004
 # PC D: 00000008 
-# Instruction : ac010010
+# Instruction : 8c010088
 #  - 
-# Writing address         16 with         15
+# read address   x
+# Writing address          x with          0
 # REGISTER VALUES
 # register 0 00000000 
-# register 1 0000000f 
+# register 1 8c010088 
 # register 2 00000000 
 # register 3 00000000 
 # register 4 00000000 
@@ -90,608 +92,626 @@
 # register 6 00000000 
 # register 7 00000000 
 # CONTROL SIGNALS
-# Mem to reg enable : 1
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10001
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 1
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
+# Reg write enable x
 # PC Address : 00000008
-# PC D: 0000000c 
-# Instruction : 8c200001
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 0000000f 
-# register 1 0000000f 
-# register 2 00000000 
-# register 3 00000000 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 1
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10001
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 1
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 0000000c
-# PC D: 00000010 
-# Instruction : 8c200005
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000f 
-# register 2 00000000 
-# register 3 00000000 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 1
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10001
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 1
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000010
-# PC D: 00000014 
-# Instruction : 8c010000
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 00000000 
-# register 3 00000000 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 1
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10001
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 1
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000014
-# PC D: 00000018 
-# Instruction : 8c020004
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 00000000 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10000
-# ALUSrc : 0
-# Reg Dst : 1
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 1
-# Reg 4 write signal 1
-# Reg 5 write signal 1
-# Reg 6 write signal 1
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000018
-# PC D: 0000001c 
-# Instruction : 80221800
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 00000016 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10011
-# ALUSrc : 0
-# Reg Dst : 1
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 1
-# Reg 4 write signal 1
-# Reg 5 write signal 1
-# Reg 6 write signal 1
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 0000001c
-# PC D: 00000020 
-# Instruction : 98221800
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff1 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00111
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 1
-# Reg 4 write signal 1
-# Reg 5 write signal 1
-# Reg 6 write signal 1
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000020
-# PC D: 00000024 
-# Instruction : 384300fc
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 ffffff01 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00000
-# ALUSrc : 0
-# Reg Dst : 1
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 1
-# Reg 4 write signal 1
-# Reg 5 write signal 1
-# Reg 6 write signal 1
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000024
-# PC D: 00000028 
-# Instruction : 00221880
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 000000a0 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00001
-# ALUSrc : 0
-# Reg Dst : 1
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 1
-# Reg 4 write signal 1
-# Reg 5 write signal 1
-# Reg 6 write signal 1
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000028
-# PC D: 0000002c 
-# Instruction : 08221880
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 a0000000 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00010
-# ALUSrc : 0
-# Reg Dst : 1
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 1
-# Reg 4 write signal 1
-# Reg 5 write signal 1
-# Reg 6 write signal 1
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 0000002c
-# PC D: 00000030 
-# Instruction : 10211800
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000000 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00001
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 1
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 1
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000030
-# PC D: 0000004c 
-# Instruction : 0c000013
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00100
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 1
-# Jump register enable : 1
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 0
-# PC Address : 0000004c
-# PC D: 00000034 
-# Instruction : 20e00000
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 1
-# ALUControl : 01000
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 0
-# PC Address : 00000034
-# PC D: 00000038 
-# Instruction : 40220003
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 00000000 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 10011
-# ALUSrc : 0
-# Reg Dst : 1
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 1
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000038
-# PC D: 0000003c 
-# Instruction : 98000000
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 ffffffff 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 1
-# ALUControl : 01000
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 0
-# PC Address : 0000003c
-# PC D: 00000040 
-# Instruction : 40410001
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 ffffffff 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 11111
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 0
-# PC Address : 00000040
-# PC D: 00000044 
-# Instruction : fc201800
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 ffffffff 
-# register 1 0000000c 
-# register 2 0000000a 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00111
-# ALUSrc : 1
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 1
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 1
-# PC Address : 00000044
-# PC D: 00000048 
-# Instruction : 3842000a
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 ffffffff 
-# register 1 0000000c 
-# register 2 fffffff5 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 11111
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 0
-# Jump register enable : 0
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 0
-# PC Address : 00000048
-# PC D: 0000004c 
-# Instruction : fc201800
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
+# read address   x
 # REGISTER VALUES
-# register 0 ffffffff 
-# register 1 0000000c 
-# register 2 fffffff5 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
+# register 0 xxxxxxxx 
+# register 1 xxxxxxxx 
+# register 2 xxxxxxxx 
+# register 3 xxxxxxxx 
+# register 4 xxxxxxxx 
+# register 5 xxxxxxxx 
+# register 6 xxxxxxxx 
+# register 7 xxxxxxxx 
 # CONTROL SIGNALS
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00100
-# ALUSrc : 0
-# Reg Dst : 0
-# Jump enable : 1
-# Jump register enable : 1
-# Reg 0 write signal 0
-# Reg 1 write signal 0
-# Reg 2 write signal 0
-# Reg 3 write signal 0
-# Reg 4 write signal 0
-# Reg 5 write signal 0
-# Reg 6 write signal 0
-# Reg 7 write signal 0
+# Mem to reg enable : x
+# Mem write enable  : x
+# Branch enable : x
+# ALUControl : xxxxx
+# ALUSrc : x
+# Reg Dst : x
+# Jump enable : x
+# Jump register enable : x
+# Reg 0 write signal x
+# Reg 1 write signal x
+# Reg 2 write signal x
+# Reg 3 write signal x
+# Reg 4 write signal x
+# Reg 5 write signal x
+# Reg 6 write signal x
+# Reg 7 write signal x
 # PC INFO
-# Reg write enable 0
-# PC Address : 0000004c
-# PC D: 00000034 
-# Instruction : 20e00000
+# Reg write enable x
+# PC Address : xxxxxxxx
+# PC D: xxxxxxxx 
+# Instruction : xxxxxxxx
 #  - 
 # Simulation ending after          20 clock cycles 
 # ** Note: $stop    : tester3.sv(41)
 #    Time: 800 ns  Iteration: 1  Instance: /tester3
 # Break in Module tester3 at tester3.sv line 41
 # Stopped at tester3.sv line 41
-# End time: 23:59:53 on Dec 08,2016, Elapsed time: 0:02:48
+# End time: 19:40:26 on Dec 11,2016, Elapsed time: 0:00:19
 # Errors: 0, Warnings: 0
