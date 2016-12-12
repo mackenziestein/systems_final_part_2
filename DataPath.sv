@@ -28,7 +28,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // ALU
    logic [31:0]        SrcA, SrcB, muxSrcBin, Result, muxBranchOut, ALUOut, RDA, RDB, SrcAIn, SrcBIn;
    // jump and branch
-   logic [31:0]        PCJump, jumpInst, PCNext, PCJumpReg;
+   logic [31:0]        PCJump, jumpInst, PCNext, PCJumpReg, PCNextJump, PCmux;
 
    
    // enabledRegister PC(pcD,pcQ,clock,1'b1);
@@ -118,9 +118,6 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign PCBranch = branchAdderOut;
 
    //JUMP THINGS
-
-   assign r7default = 5'b11111;
-   mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign);
 
    assign PCJump = {pcQ[31:28], instr[25:0], constant0[1:0]};
    assign PCJumpReg = RD1;

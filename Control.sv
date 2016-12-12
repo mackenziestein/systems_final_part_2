@@ -1,17 +1,19 @@
 module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0);
 
    input logic [31:0] ins;
-   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0; 
+   input logic [0:0]  clock;
+   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, alu4, alu3, alu2, alu1, alu0;
+   output logic [1:0] ALUSrcB, PCSrc;
    output logic [4:0] ALUControl;
    
    logic [0:0] andr, jr, jal, norr, nori, notr, bleu, rolv, rorv;
-   logic [0:0] lw, sw, lw2, sw2;
+   logic [0:0] lw, sw, lw2, sw2, srcB1, srcB0, PCSrc1, PCSrc0;
 
    assign andr = ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ~ins[27] & ~ins[26];
    assign lw = ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ins[27] & ins[26];
-   mux4to1B1 lwSave(lw, lw2, clock, 1'b1);
+   mux4to1B1 lwSave(1'b0, lw, 1'b0, 1'b0, lw, clock, lw2);
    assign sw = ins[31] & ~ins[30] & ins[29] & ~ins[28] & ins[27] & ins[26];
-   mux4to1B1 swSave(sw, sw2, clock, 1'b1);  
+   mux4to1B1 swSave(1'b0, sw, 1'b0, 1'b0, sw, clock, sw2);  
    assign jr = ~ins[31] & ~ins[30] & ins[29] & ~ins[28] & ~ins[27] & ~ins[26];
    assign jal = ~ins[31] & ~ins[30] & ~ins[29] & ~ins[28] & ins[27] & ins[26];
    assign norr = ins[31] & ~ins[30] & ~ins[29] & ins[28] & ins[27] & ~ins[26];
@@ -41,11 +43,12 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    assign IorD = sw2;
    assign IRWrite = ~lw | ~sw;
    assign ALUSrcA = nori | lw | sw | lw2 | sw2;
-   assign ALUSrcB[1] = lw | sw | lw2 | sw2 | branchEnable | nori;
-   assign ALUSrcB[0] = branchEnable;
-   assign PCSrc[1] = ~branchEnable;
-   assign PCSrc[0] = ~jal;
-   
+   assign srcB1 = lw | sw | lw2 | sw2 | branchEnable | nori;
+   assign scrB0 = branchEnable;
+   assign ALUSrcB = {srcB1, srcB0};
+   assign PCSrc1 = ~branchEnable;
+   assign PCSrc0 = ~jal;
+   assign PCSrc = {PCSrc1, PCSrc0};
    
    
 endmodule
