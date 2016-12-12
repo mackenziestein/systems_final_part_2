@@ -1,7 +1,7 @@
-module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0);
 
    input logic [31:0] ins;
-   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0; 
+   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0; 
    output logic [4:0] ALUControl;
    
    logic [0:0] andr, jr, jal, norr, nori, notr, bleu, rolv, rorv;
@@ -27,23 +27,25 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    assign alu1 = ins[28];
    assign alu0 = ins[27];
    
-   assign memToReg = lw | lw2;
-   assign memWrite = sw | sw2;
+   assign memToReg = lw2 | jal;
+   assign memWrite = sw2;
    assign branchEnable = bleu;
    assign ALUControl = {alu4, alu3, alu2, alu1, alu0};
-   assign ALUSrc = nori | lw | sw;
+   assign ALUSrc = nori | lw | sw; // don't need
    assign regDst = andr | norr | notr | rolv | rorv;
-   assign regWriteEnable = lw | andr | norr | nori | notr | rolv | rorv | jal;  
+   assign regWriteEnable = lw2 | andr | norr | nori | notr | rolv | rorv | jal;  
    assign jump = jr | jal;
    assign jumpReg = jr;
    
-   assign PCWrite = 1'b0;
-   assign IorD = sw | sw2;
-   assign IRWrite = 1'b0;
+   assign PCWrite = ~lw | ~sw;
+   assign IorD = sw2;
+   assign IRWrite = ~lw | ~sw;
    assign ALUSrcA = nori | lw | sw | lw2 | sw2;
-   assign ALUSrcB[0] = ;
-   assign ALUSrcB[1] = ;
-
+   assign ALUSrcB[1] = lw | sw | lw2 | sw2 | branchEnable | nori;
+   assign ALUSrcB[0] = branchEnable;
+   assign PCSrc[1] = ~branchEnable;
+   assign PCSrc[0] = ~jal;
    
-    
+   
+   
 endmodule

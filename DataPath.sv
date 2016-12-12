@@ -14,7 +14,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    logic [0:0] 	       memToReg, memWrite, branchEnable, ALUSrc, regDst, jump, jumpReg, alu4, alu3, alu2, alu1, alu0;
    // new control lines:
    logic [0:0] 	       PCWrite, IorD, IRWrite, ALUSrcA;
-   logic [1:0] 	       ALUSrcB;
+   logic [1:0] 	       ALUSrcB, PCSrc;
    logic [4:0] 	       ALUControl;
    // memory
    logic [31:0]        instA, ALUResult, dataA, WD, instrFromMem;
@@ -47,12 +47,12 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    // CONTROL UNIT
     
-   Control theControl(clock, instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, alu4, alu3, alu2, alu1, alu0);
+   Control theControl(clock, instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0);
    
    // INSTRUCTION AND DATA MEMORY
    
    assign dataA = ALUResult;
-   mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUOut, pcQ, instA);
+   mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUResult, pcQ, instA); // ALURESULT SHOULD BE ALUOUT
    combinedMemory idmem(instA, instrFromMem, WD, clk, WE); 
    
    //assign instA = pcQ; // this needs to be changed - either the output from the ALU or the output from the PC register
@@ -69,17 +69,16 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);
    
        // old things
-   //assign r7default = 5'b11111;
    
-   mux2to1B5 muxA3(regDst, instr[15:11], instr[20:16], A3assign);
- //  mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign); DO WE NEED THIS????
-   mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUOut, WD3);
-   
+   mux2to1B5 muxA3(regDst, instr[15:11], instr[20:16], RsOrRt);
+   assign r7default = 5'b11111;
+   mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign);
+   mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUResult, WD3); // ALURESULT SHOULD BE ALUOUT
    
    assign clk = clock; // WHY DO WE DO THIS? WHY NOT JUST USE CLOCK?
    assign A1 = instr[25:21];
    assign A2 = instr[20:16];
-   assign A3 = A3assign;  // A3 is either 20:16 or 15:11, based on RegDst
+   assign A3 = A3assign;  // A3 is either 20:16 or 15:11 or default to register 7 address
  
    assign WE3 = regWriteEnable;
    
@@ -103,33 +102,38 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    ALU theALU(SrcA, SrcB, ALUControl, ALUResult);    
 
-  // ignore dis for now  mux4to1B32 muxRD(jump, memToReg, 32'b0, pcPlus4, RD, ALUResult, Result);
+   // ignore dis for now  mux4to1B32 muxRD(jump, memToReg, 32'b0, pcPlus4, RD, ALUResult, Result);
 
    assign WD = RDB;
    assign WE = memWrite;
 
-   enabledRegister ALUResultReg(ALUResult, ALUOut, clock, 1'b1);
+   // enabledRegister ALUResultReg(ALUResult, ALUOut, clock, 1'b1);
 
 			  
-   //SOME BRANCH THINGS
+   // SOME BRANCH THINGS
    
    adder branchAdd(SignImm22, pc4AdderIn, branchAdderOut);
 
    assign pc4AdderIn = pcPlus4;
    assign PCBranch = branchAdderOut;
 
-   //PC THINGS
+   //JUMP THINGS
 
-   mux4to1B32 muxBranch(1'b0, PCBranch[31], 32'b0, 32'b0, SignImm, pcPlus4, muxBranchOut);
+   assign r7default = 5'b11111;
+   mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign);
 
    assign PCJump = {pcQ[31:28], instr[25:0], constant0[1:0]};
    assign PCJumpReg = RD1;
    
-   mux8to1B32 muxPC(branchEnable, jump, jumpReg, 32'b0, 32'b0, 32'b0, muxBranchOut, PCJumpReg, PCJump, 32'b0, pcPlus4, PCNext);
+   mux4to1B32 muxJump(1'b0, jumpReg, 32'b0, 32'b0, PCJumpReg, PCJump, PCNextJump);
+   
+
+   // mux pcjumpreg and pcjump based on jumpreg
+   // take that and put it into pcsource
    
    // assign pcD = PCNext;
 
-   mux4to1B32 PCSource(1'b0, PCSrc, 32'b0, 32'b0, ALUOut, ALUResult, PCmux);
+   mux4to1B32 PCSource(PCSrc[1], PCSrc[0], pcPlus4, PCNextJump, ALUResult, ALUResult, PCmux); // I1 ALURESULT SHOULD BE ALUOUT
    assign pcD = PCmux;   
    enabledRegister PCWriteReg(pcD, pcQ, clock, PCWrite);
    
