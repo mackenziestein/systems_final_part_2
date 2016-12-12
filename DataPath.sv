@@ -13,11 +13,11 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // control unit
    logic [0:0] 	       memToReg, memWrite, branchEnable, ALUSrc, regDst, jump, jumpReg, alu4, alu3, alu2, alu1, alu0;
    // new control lines:
-   logic [0:0] 	       PCWrite, IorD, IRWrite, ALUSrcA;
+   logic [0:0] 	       PCWrite, IorD, IRWrite, ALUSrcA, secondRound;
    logic [1:0] 	       ALUSrcB, PCSrc;
    logic [4:0] 	       ALUControl;
    // memory
-   logic [31:0]        instA, ALUResult, dataA, WD, instrFromMem;
+   logic [31:0]        instA, ALUResult, dataA, WD, instrFromMem, firstOrSecond;
    logic [0:0] 	       WE;
    // register file
    logic [4:0] 	       A3, A2, A1, RsOrRt, A3assign, r7default;
@@ -47,7 +47,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    // CONTROL UNIT
     
-   Control theControl(clock, instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0);
+   Control theControl(clock, instr, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, secondRound, alu4, alu3, alu2, alu1, alu0);
    
    // INSTRUCTION AND DATA MEMORY
    
@@ -65,7 +65,9 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    registerFile theRegisters(A1,A2, A3, clk, WE3, WD3, RD1, RD2);
 
        // new things
-   enabledRegister instructionIn(instrFromMem, instr, clock, IRWrite);
+   enabledRegister instructionIn(instrFromMem, firstOrSecond, clock, IRWrite);
+   mux4to1B32 choose1or2(1'b0, secondRound, 32'b0, 32'b0, firstOrSecond, instrFromMem, instr);
+   
    //assign instr = instrFromMem;
    
    //enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);

@@ -1,8 +1,8 @@
-module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, alu4, alu3, alu2, alu1, alu0);
+module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, ALUSrcB, PCSrc, secondRound, alu4, alu3, alu2, alu1, alu0);
 
    input logic [31:0] ins;
    input logic [0:0]  clock;
-   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, alu4, alu3, alu2, alu1, alu0;
+   output logic [0:0] memToReg, memWrite, branchEnable, ALUSrc, regDst, regWriteEnable, jump, jumpReg, PCWrite, IorD, IRWrite, ALUSrcA, secondRound, alu4, alu3, alu2, alu1, alu0;
    output logic [1:0] ALUSrcB, PCSrc;
    output logic [4:0] ALUControl;
    
@@ -50,15 +50,17 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    //assign PCWrite = ~((lw & ~lw2) | (sw & ~sw2));
    assign PCWrite = ~(lw | sw);
    assign IorD = lw2 | sw2;
-   assign IRWrite = ~(lw2 | sw2);
+   assign IRWrite = lw | sw ;
+   //~(lw2 | sw2);
    assign ALUSrcA = ~branchEnable;
- // nori | lw | sw | lw2 | sw2;
+   // nori | lw | sw | lw2 | sw2;
    assign srcB1 = lw | sw | lw2 | sw2 | branchEnable | nori | jump;
    assign srcB0 = branchEnable | jump;
    assign ALUSrcB = {srcB1, srcB0};
    assign PCSrc1 = ~branchEnable;
    assign PCSrc0 = ~jal;
    assign PCSrc = {PCSrc1, PCSrc0};
+   assign secondRound = lw2 | sw2;
    
    
 endmodule
