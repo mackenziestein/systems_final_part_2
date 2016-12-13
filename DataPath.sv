@@ -126,73 +126,27 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
 
 always @ (negedge clock) begin
-   $display("---------------pcd %b", pcD);
-   $display("---------------PCWrite %b", PCWrite);
-   $display("---------------pcsrc %b", PCSrc);
-   
-   $display("pcq %b", pcQ);
-   $display("alu result %b", ALUResult);
-   //$display("alu res in alu %b", theALU.finalOut);
-   //$display("alu first out %b", theALU.firstOut);
-   //$display("alu sumOut %b", theALU.sumOut);
-   //$display("alu norOut %b", theALU.norOut);
-   //$display("alu norIOut %b", theALU.norIOut);
-   $display("ALU add %b norr %b nori %b notr %b", theALU.add, theALU.norr, theALU.nori, theALU.notr);
-   $display("ALU rolv %b rorv %b bleu %b", theALU.rolv, theALU.rorv, theALU.bleu);
-   $display("CONTROL  andr %b jr %b jal %b jump %b norr %b notr %b bleu %b rolv %b rorv %b  be %b nori %b", theControl.andr, theControl.jr, theControl.jal, theControl.jump, theControl.norr, theControl.notr, theControl.bleu, theControl.rolv, theControl.rorv, theControl.branchEnable, theControl.nori);
-   $display("lw1 %b sw1 %b lw2 %v sw2 %b", theControl.lw, theControl.sw, theControl.lw2, theControl.sw2);
-   $display("srcb bit 1 %b", theControl.srcB1);
-   $display("srcb bit 0 %b", theControl.srcB0);
-   $display("srcb %b", theControl.ALUSrcB);
-   $display("pcsrc bit 1 %b", theControl.PCSrc1);
-   $display("pcsrc bit 0 %b", theControl.PCSrc0);
-   $display("pcsrc %b", theControl.PCSrc);
-   
-   //$display("I1 %b", theALU.I1);
-   //$display("I2 %b", theALU.I2);
-   //$display("signimm22 %b", SignImm22);
-   //$display("SignImm %b", SignImm);
-   //$display("constant4 %b", constant4);
-   //$display("RDB %b", RDB);
-   $display("IorD %b", IorD);
-   $display("instrfrommem %b", instrFromMem);
-   $display("instA %b", instA);
-   
-   
-   //$display("data out %b", dataOut);
-   //$display("aluresult %b", ALUResult);
-   
-   
-   // (ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn)
-   
    $display("CONTROL SIGNALS");
+   $display("PCSrc %b", PCSrc);
+   $display("PCWrite %b", PCWrite);
+   $display("IorD %b", IorD);
+   $display("LW and SW lines:  lw1 %b | lw2 %b | sw1 %b | sw2 %b", theControl.lw, theControl.lw2, theControl.sw, theControl.sw2);
    $display("Mem to reg enable : %b", memToReg);
-   $display("WD3 %h", WD3);
-   $display("dataOut %h", dataOut);
-   $display("I1 %b", theALU.I1);
-   $display("I2 %b", theALU.I2);
-   
-   $display("bleuOut %b", theALU.bleuOut);
-   $display("ALUResult %b", ALUResult);
-   $display("PCPlus4 %h", pcPlus4);
-   $display("SignImm %h", SignImm);
-   $display("PCBranch %b", PCBranch);
-   
-   
    $display("Mem write enable  : %b", memWrite);
-   //$display("Branch enable : %b", branchEnable);
+   $display("Branch enable : %b", branchEnable);
    $display("ALUControl : %b", ALUControl);
-   $display("ALUSrc : %b", ALUSrc);
+   $display("ALU SrcA %b", theControl.ALUSrcA);
+   $display("ALU SrcB %b", theControl.ALUSrcB);
    $display("Reg Dst : %b", regDst);
-   //$display("Jump enable : %b", jump);
-   //$display("Jump register enable : %b", jumpReg);
-   //$display("Reg 0 write signal %b", theRegisters.yesWrite0);
-   //$display("Reg 1 write signal %b", theRegisters.yesWrite1);
-   //$display("Reg 2 write signal %b", theRegisters.yesWrite2);
-   //$display("Reg 3 write signal %b", theRegisters.yesWrite3);
-   //$display("Reg 4 write signal %b", theRegisters.yesWrite3);
-   //$display("Reg 5 write signal %b", theRegisters.yesWrite3);
-   //$display("Reg 6 write signal %b", theRegisters.yesWrite3);
+   $display("Jump enable : %b", jump);
+   $display("Jump register enable : %b", jumpReg);
+   $display("Reg 0 write signal %b", theRegisters.yesWrite0);
+   $display("Reg 1 write signal %b", theRegisters.yesWrite1);
+   $display("Reg 2 write signal %b", theRegisters.yesWrite2);
+   $display("Reg 3 write signal %b", theRegisters.yesWrite3);
+   $display("Reg 4 write signal %b", theRegisters.yesWrite3);
+   $display("Reg 5 write signal %b", theRegisters.yesWrite3);
+   $display("Reg 6 write signal %b", theRegisters.yesWrite3);
    $display("Reg 7 write signal %b", theRegisters.yesWrite7);
 end // always
    

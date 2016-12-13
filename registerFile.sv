@@ -45,9 +45,9 @@ module registerFile(input logic [4:0] A1,
 	$display("register 1 %h ",reg1);
 	$display("register 2 %h ",reg2);
 	$display("register 3 %h ",reg3);
-	//$display("register 4 %h ",reg4);
-	//$display("register 5 %h ",reg5);
-	//$display("register 6 %h ",reg6);
+	$display("register 4 %h ",reg4);
+	$display("register 5 %h ",reg5);
+	$display("register 6 %h ",reg6);
 	$display("register 7 %h ",reg7);
      end // always @ (negedge CLK)
    

@@ -29,8 +29,8 @@ always
 always @ (negedge clock) begin
    $display("PC INFO");
    $display("Reg write enable %b", regWriteEnable);
-   $display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PC Address : %h",pcQ);
-   $display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PC D: %h ",pcD);
+   $display("PC Address : %h",pcQ);
+   $display("PC D: %h ",pcD);
    $display("Instruction : %h", instruction);
    $display(" - ");
    
