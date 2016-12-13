@@ -5,3 +5,6 @@ Mackenzie Stein
 
 As far as we know, everything works.
 All eleven instructions run successfully, in particular as they are written in instructionMemory2016.
+Changes to make this a multicycle datapath:
+1. Combined data memory and instruction memory into combined memory.
+2. Implement lw and sw to take 2 clock cycles, but every other instruction takes 1 clock cycle.
