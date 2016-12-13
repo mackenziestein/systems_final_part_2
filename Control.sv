@@ -50,15 +50,15 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    //assign PCWrite = ~((lw & ~lw2) | (sw & ~sw2));
    assign PCWrite = ~(lw | sw);
    assign IorD = lw2 | sw2;
-   assign IRWrite = lw | sw ;
+   assign IRWrite = lw | sw;
    //~(lw2 | sw2);
    assign ALUSrcA = ~branchEnable;
    // nori | lw | sw | lw2 | sw2;
    assign srcB1 = lw | sw | lw2 | sw2 | branchEnable | nori | jump;
    assign srcB0 = branchEnable | jump;
    assign ALUSrcB = {srcB1, srcB0};
-   assign PCSrc1 = ~branchEnable;
-   assign PCSrc0 = ~jal;
+   assign PCSrc1 = branchEnable | jumpReg;
+   assign PCSrc0 = jal | jumpReg;
    assign PCSrc = {PCSrc1, PCSrc0};
    assign secondRound = lw2 | sw2;
    

@@ -126,6 +126,9 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign pc4AdderIn = pcPlus4;
    assign PCBranch = branchAdderOut;
 
+   mux4to1B32 muxBranch(1'b0, ALUResult[31], 32'b0, 32'b0, SignImm, pcPlus4, muxBranchOut);
+   
+   
    //JUMP THINGS
 
    assign PCJump = {pcQ[31:28], instr[25:0], constant0[1:0]};
@@ -138,8 +141,9 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // take that and put it into pcsource
    
    // assign pcD = PCNext;
+   
 
-   mux4to1B32 PCSource(PCSrc[1], PCSrc[0], pcPlus4, PCNextJump, ALUResult, ALUResult, PCmux); // I1 ALURESULT SHOULD BE ALUOUT
+   mux4to1B32 PCSource(PCSrc[1], PCSrc[0], RD1, muxBranchOut, PCNextJump, pcPlus4, PCmux); // I1 ALURESULT SHOULD BE ALUOUT
    assign pcD = PCmux;   
    enabledRegister PCWriteReg(pcD, pcQ, clock, PCWrite);
    
@@ -164,6 +168,9 @@ always @ (negedge clock) begin
    $display("srcb bit 1 %b", theControl.srcB1);
    $display("srcb bit 0 %b", theControl.srcB0);
    $display("srcb %b", theControl.ALUSrcB);
+   $display("pcsrc bit 1 %b", theControl.PCSrc1);
+   $display("pcsrc bit 0 %b", theControl.PCSrc0);
+   $display("pcsrc %b", theControl.PCSrc);
    
    //$display("I1 %b", theALU.I1);
    //$display("I2 %b", theALU.I2);
@@ -186,8 +193,12 @@ always @ (negedge clock) begin
    $display("Mem to reg enable : %b", memToReg);
    $display("WD3 %h", WD3);
    $display("dataOut %h", dataOut);
+   $display("bleuOut %h", theALU.bleuOut);
+   
    $display("ALUResult %h", ALUResult);
    $display("PCPlus4 %h", pcPlus4);
+   $display("SignImm %h", SignImm);
+   $display("PCBranch %b", PCBranch);
    
    
    $display("Mem write enable  : %b", memWrite);
