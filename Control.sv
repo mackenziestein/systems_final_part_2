@@ -56,8 +56,8 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    assign branchEnable = bleu;
    assign ALUControl = {alu4, alu3, alu2, alu1, alu0};
    assign ALUSrc = nori | lw | sw; // don't need
-   assign regDst = andr | norr | notr | rorv;
-   assign regWriteEnable = lw2 | andr | norr | nori | notr | rorv | jal;  
+   assign regDst = andr | norr | notr | rolv | rorv;
+   assign regWriteEnable = lw2 | andr | norr | nori | notr | rolv | rorv | jal;  
    assign jump = jr | jal;
    assign jumpReg = jr;
    

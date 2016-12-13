@@ -3,7 +3,8 @@ Laura Schmidlein
 Mackenzie Stein
 
 
-As far as we know, everything works other than rolv.  Based on how we had encoded it before, it will not work here unless we completely change our encoding.  We have not done that yet.
+As far as we know, everything works.
+In particular, all 11 instructions work as specified in the instructionMemory2016.sv file.
 
 Changes to make this a multicycle datapath:
 1. Combined data memory and instruction memory into combined memory.
