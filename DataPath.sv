@@ -30,14 +30,11 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // jump and branch
    logic [31:0]        PCJump, jumpInst, PCNext, PCJumpReg, PCNextJump, PCmux;
 
-   
-   // enabledRegister PC(pcD,pcQ,clock,1'b1);
 
    initial
      constant4 <= 32'b100;
 
-   // ADDER for the PC incrementing circuit.
-
+   // ADDER for the PC incrementing circuit. - functionality not put into ALU.
    
    adder psAdd(adderIn1,adderIn2,adderOut);
 
@@ -52,37 +49,26 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    // INSTRUCTION AND DATA MEMORY
    
    assign dataA = ALUResult;
-   mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUResult, pcQ, instA); // ALURESULT SHOULD BE ALUOUT
-   combinedMemory idmem(instA, instrFromMem, WD, clk, WE);  // !!!!!!!!!!!!!! INSTA IS DYING
-   
-   //assign instA = pcQ; // this needs to be changed - either the output from the ALU or the output from the PC register
-   // dataMemory data(dataA, RD, WD, clk, WE);
-   // instructionMemory imem(instA,instr);
+   mux4to1B32 memoryIn(1'b0, IorD, 32'b0, 32'b0, ALUResult, pcQ, instA); 
+   combinedMemory idmem(instA, instrFromMem, WD, clk, WE); 
 
    
    //REGISTER FILE 
 
    registerFile theRegisters(A1,A2, A3, clk, WE3, WD3, RD1, RD2);
 
-       // new things
+   // store and (maybe) select previous instruction on lw and sw round 2
    enabledRegister instructionIn(instrFromMem, firstOrSecond, clock, IRWrite);
    mux4to1B32 choose1or2(1'b0, secondRound, 32'b0, 32'b0, firstOrSecond, instrFromMem, instr);
-   
-   //assign instr = instrFromMem;
-   
-   //enabledRegister dataIn(instrFromMem, dataOut, clock, 1'b1);
    assign dataOut = instrFromMem;
-   
-       // old things
-   
+
+   // functionality to store instruction in r7 in order to jump back to it on a jr instruction
    mux2to1B5 muxA3(regDst, instr[15:11], instr[20:16], RsOrRt);
    assign r7default = 5'b11111;
    mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign);
-   //mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUResult, WD3); // ALURESULT SHOULD BE ALUOUT
    mux4to1B32 muxRD(jump, memToReg, pcPlus4, 32'b111111, dataOut, ALUResult, WD3);
 
-   
-   assign clk = clock; // WHY DO WE DO THIS? WHY NOT JUST USE CLOCK?
+   assign clk = clock;
    assign A1 = instr[25:21];
    assign A2 = instr[20:16];
    assign A3 = A3assign;  // A3 is either 20:16 or 15:11 or default to register 7 address
@@ -94,38 +80,34 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    //ALU THINGS
 
-   //enabledRegister RD1Out(RD1, RDA, clock, 1'b1);
+   //enabledRegister RD1Out(RD1, RDA, clock, 1'b1); --> this would be in full implementation of multicycle, but we did not want to use so many clock ticks
    assign RDA = RD1;
-   //enabledRegister RD2Out(RD2, RDB, clock, 1'b1);
+   //enabledRegister RD2Out(RD2, RDB, clock, 1'b1); --> this would be in full implementation of multicycle, but we did not want to use so many clock ticks
    assign RDB = RD2;
    
-   
    assign SignImm22 = {SignImm[29:0], constant0};
+   // choose between RDA (register 1) and pcQ (current pc address)
    mux4to1B32 ALUA(1'b0, ALUSrcA, 32'b0, 32'b0, RDA, pcQ, SrcAIn);
-   mux4to1B32 ALUB(ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn);
-   
-   
-   //mux4to1B32 muxRD2(1'b0, ALUSrc, 32'b0, 32'b0, SignImm, RD2, muxSrcBin);
-   
+   // choose between SignImm22 (for jump), SignImm (for lw, sw, nori), constant4 (for PC+4) or RDB (everything else)
+   mux4to1B32 ALUB(ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn);   
    assign SrcA = SrcAIn;
    assign SrcB = SrcBIn;
 
-   ALU theALU(SrcA, SrcB, ALUControl, ALUResult);    
-
+   ALU theALU(SrcA, SrcB, ALUControl, ALUResult);
 
    assign WD = RDB;
    assign WE = memWrite;
 
-   // enabledRegister ALUResultReg(ALUResult, ALUOut, clock, 1'b1);
-
+   // enabledRegister ALUResultReg(ALUResult, ALUOut, clock, 1'b1); --> this would be in full implementation of multicycle, but we did not want to use so many clock ticks
 			  
    // SOME BRANCH THINGS
-   
-   adder branchAdd(SignImm22, pc4AdderIn, branchAdderOut);
 
+   // calculate branch address
+   adder branchAdd(SignImm22, pc4AdderIn, branchAdderOut);
    assign pc4AdderIn = pcPlus4;
    assign PCBranch = branchAdderOut;
 
+   // choose to branch or not to branch, based on whether I1-I2 is positive (I1>I2, don't branch) or I1-I2 is negative (I1<I2, do branch)
    mux4to1B32 muxBranch(1'b0, ALUResult[31], 32'b0, 32'b0, PCBranch, pcPlus4, muxBranchOut);
    
    
@@ -133,17 +115,11 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    assign PCJump = {pcQ[31:28], instr[25:0], constant0[1:0]};
    assign PCJumpReg = RD1;
-   
+   // choose whether to jump to reg7 or jump to calculated address
    mux4to1B32 muxJump(1'b0, jumpReg, 32'b0, 32'b0, PCJumpReg, PCJump, PCNextJump);
    
-
-   // mux pcjumpreg and pcjump based on jumpreg
-   // take that and put it into pcsource
-   
-   // assign pcD = PCNext;
-   
-
-   mux4to1B32 PCSource(PCSrc[1], PCSrc[0], RD1, muxBranchOut, PCNextJump, pcPlus4, PCmux); // I1 ALURESULT SHOULD BE ALUOUT
+   // select next PC address
+   mux4to1B32 PCSource(PCSrc[1], PCSrc[0], RD1, muxBranchOut, PCNextJump, pcPlus4, PCmux);
    assign pcD = PCmux;   
    enabledRegister PCWriteReg(pcD, pcQ, clock, PCWrite);
    
