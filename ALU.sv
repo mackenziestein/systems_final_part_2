@@ -17,11 +17,12 @@ module ALU(input logic  [31:0] I1,
    // assign 0 or 1 to each function logic based on Selector
    assign add = (Selector[4] & ~Selector[3] & ~Selector[2] & ~Selector[1] & ~Selector[0]) | 
 		(Selector[4] & ~Selector[3] & ~Selector[2] & ~Selector[1] & Selector[0]) |
-		(Selector[4] & ~Selector[3] & Selector[2] & ~Selector[1] & Selector[0]);
+		(Selector[4] & ~Selector[3] & Selector[2] & ~Selector[1] & Selector[0]) |
+		 ~Selector[4] & Selector[3] & ~Selector[2] & ~Selector[1] & ~Selector[0]; // on first bleu round, want to add
    assign norr = Selector[4] & ~Selector[3] & ~Selector[2] & Selector[1] & Selector[0];
    assign nori = ~Selector[4] & ~Selector[3] & Selector[2] & Selector[1] & Selector[0];
    assign notr = ~Selector[4] & ~Selector[3] & ~Selector[2] & Selector[1] & ~Selector[0];   
-   assign bleu = ~Selector[4] & Selector[3] & ~Selector[2] & ~Selector[1] & ~Selector[0];
+   assign bleu = ~Selector[4] & Selector[3] & ~Selector[2] & ~Selector[1] & Selector[0]; // on second bleu round, want to subtract
    assign rolv = ~Selector[4] & ~Selector[3] & ~Selector[2] & ~Selector[1] & ~Selector[0];
    assign rorv = ~Selector[4] & ~Selector[3] & ~Selector[2] & ~Selector[1] & Selector[0];
 

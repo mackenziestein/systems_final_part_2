@@ -87,7 +87,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    
    assign SignImm22 = {SignImm[29:0], constant0};
    // choose between RDA (register 1) and pcQ (current pc address)
-   mux4to1B32 ALUA(1'b0, ALUSrcA, 32'b0, 32'b0, RDA, pcQ, SrcAIn);
+   mux4to1B32 ALUA(1'b0, ALUSrcA, 32'b0, 32'b0, RDA, pcPlus4, SrcAIn);
    // choose between SignImm22 (for jump), SignImm (for lw, sw, nori), constant4 (for PC+4) or RDB (everything else)
    mux4to1B32 ALUB(ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn);   
    assign SrcA = SrcAIn;
@@ -102,10 +102,8 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 			  
    // SOME BRANCH THINGS
 
-   // calculate branch address
-   adder branchAdd(SignImm22, pc4AdderIn, branchAdderOut);
-   assign pc4AdderIn = pcPlus4;
-   assign PCBranch = branchAdderOut;
+   // in first round of branch instruction, save branch address to be used if condition is satisfied
+   enabledRegister holdPCBranch(ALUResult, PCBranch, clock, branchEnable);
 
    // choose to branch or not to branch, based on whether I1-I2 is positive (I1>I2, don't branch) or I1-I2 is negative (I1<I2, do branch)
    mux4to1B32 muxBranch(1'b0, ALUResult[31], 32'b0, 32'b0, PCBranch, pcPlus4, muxBranchOut);
@@ -140,14 +138,14 @@ always @ (negedge clock) begin
    $display("Reg Dst : %b", regDst);
    $display("Jump enable : %b", jump);
    $display("Jump register enable : %b", jumpReg);
-   $display("Reg 0 write signal %b", theRegisters.yesWrite0);
-   $display("Reg 1 write signal %b", theRegisters.yesWrite1);
-   $display("Reg 2 write signal %b", theRegisters.yesWrite2);
-   $display("Reg 3 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 4 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 5 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 6 write signal %b", theRegisters.yesWrite3);
-   $display("Reg 7 write signal %b", theRegisters.yesWrite7);
+   //$display("Reg 0 write signal %b", theRegisters.yesWrite0);
+   //$display("Reg 1 write signal %b", theRegisters.yesWrite1);
+   //$display("Reg 2 write signal %b", theRegisters.yesWrite2);
+   //$display("Reg 3 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 4 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 5 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 6 write signal %b", theRegisters.yesWrite3);
+   //$display("Reg 7 write signal %b", theRegisters.yesWrite7);
 end // always
    
 endmodule

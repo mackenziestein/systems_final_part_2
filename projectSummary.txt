@@ -8,4 +8,5 @@ In particular, all 11 instructions work as specified in the instructionMemory201
 
 Changes to make this a multicycle datapath:
 1. Combined data memory and instruction memory into combined memory.
-2. Implement lw and sw to take 2 clock cycles, but every other instruction takes 1 clock cycle.
+2. Implement lw, sw, and bleu to take 2 clock cycles, but every other instruction takes 1 clock cycle.
+3. Eliminated the adder that was formerly used for PCBranch (bleu), and instead compute the branch address in the ALU and save it in a register, to be retrieved if branch condition is satisfied on the next clock tick.
