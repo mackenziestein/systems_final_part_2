@@ -1,5 +1,5 @@
 # vsim -lib work -c tester3 
-# Start time: 01:28:20 on Dec 13,2016
+# Start time: 01:36:56 on Dec 13,2016
 # Loading sv_std.std
 # Loading work.tester3
 # Loading work.DataPath
@@ -824,36 +824,10 @@
 # PC D: 0000004c 
 # Instruction : fc201800
 #  - 
-# read address  18
-# REGISTER VALUES
-# register 0 ffffffff 
-# register 1 0000000c 
-# register 2 fffffff5 
-# register 3 fffffff3 
-# register 4 00000000 
-# register 5 00000000 
-# register 6 00000000 
-# register 7 00000034 
-# CONTROL SIGNALS
-# PCSrc 11
-# PCWrite 1
-# IorD 0
-# LW and SW lines:  lw1 0 | lw2 0 | sw1 0 | sw2 0
-# Mem to reg enable : 0
-# Mem write enable  : 0
-# Branch enable : 0
-# ALUControl : 00100
-# ALU SrcA 1
-# ALU SrcB 11
-# Reg Dst : 0
-# Jump enable : 1
-# Jump register enable : 1
-# PC INFO
-# Reg write enable 0
-# PC Address : 0000004c
-# PC D: 00000034 
-# Instruction : 20e00000
-#  - 
-# read address  19
-# End time: 01:28:46 on Dec 13,2016, Elapsed time: 0:00:26
+# Simulation ending after          26 clock cycles 
+# ** Note: $stop    : tester3.sv(41)
+#    Time: 1040 ns  Iteration: 1  Instance: /tester3
+# Break in Module tester3 at tester3.sv line 41
+# Stopped at tester3.sv line 41
+# End time: 01:37:05 on Dec 13,2016, Elapsed time: 0:00:09
 # Errors: 0, Warnings: 0
