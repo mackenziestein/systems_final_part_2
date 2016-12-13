@@ -5,6 +5,7 @@ Mackenzie Stein
 
 As far as we know, everything works.
 In particular, all 11 instructions work as specified in the instructionMemory2016.sv file.
+To run through all instructions (which takes 26 clock ticks), enter "run 10000" into ModelSim command.
 
 Changes to make this a multicycle datapath:
 1. Combined data memory and instruction memory into combined memory.
