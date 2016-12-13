@@ -78,7 +78,9 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    mux2to1B5 muxA3(regDst, instr[15:11], instr[20:16], RsOrRt);
    assign r7default = 5'b11111;
    mux2to1B5 muxJal(jump, r7default, RsOrRt, A3assign);
-   mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUResult, WD3); // ALURESULT SHOULD BE ALUOUT
+   //mux4to1B32 muxWD3(1'b0, memToReg, 32'b0, 32'b0, dataOut, ALUResult, WD3); // ALURESULT SHOULD BE ALUOUT
+   mux4to1B32 muxRD(jump, memToReg, pcPlus4, 32'b111111, dataOut, ALUResult, WD3);
+
    
    assign clk = clock; // WHY DO WE DO THIS? WHY NOT JUST USE CLOCK?
    assign A1 = instr[25:21];
@@ -110,7 +112,6 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
 
    ALU theALU(SrcA, SrcB, ALUControl, ALUResult);    
 
-   // ignore dis for now  mux4to1B32 muxRD(jump, memToReg, 32'b0, pcPlus4, RD, ALUResult, Result);
 
    assign WD = RDB;
    assign WE = memWrite;
@@ -158,7 +159,7 @@ always @ (negedge clock) begin
    //$display("alu norIOut %b", theALU.norIOut);
    $display("ALU add %b norr %b nori %b notr %b", theALU.add, theALU.norr, theALU.nori, theALU.notr);
    $display("ALU rolv %b rorv %b bleu %b", theALU.rolv, theALU.rorv, theALU.bleu);
-   $display("CONTROL  andr %b jr %b jal %b norr %b notr %b bleu %b rolv %b rorv %b  be %b nori %b", theControl.andr, theControl.jr, theControl.jal, theControl.norr, theControl.notr, theControl.bleu, theControl.rolv, theControl.rorv, theControl.branchEnable, theControl.nori);
+   $display("CONTROL  andr %b jr %b jal %b jump %b norr %b notr %b bleu %b rolv %b rorv %b  be %b nori %b", theControl.andr, theControl.jr, theControl.jal, theControl.jump, theControl.norr, theControl.notr, theControl.bleu, theControl.rolv, theControl.rorv, theControl.branchEnable, theControl.nori);
    $display("lw1 %b sw1 %b lw2 %v sw2 %b", theControl.lw, theControl.sw, theControl.lw2, theControl.sw2);
    $display("srcb bit 1 %b", theControl.srcB1);
    $display("srcb bit 0 %b", theControl.srcB0);
@@ -175,14 +176,20 @@ always @ (negedge clock) begin
    $display("instA %b", instA);
    
    
-   $display("data out %b", dataOut);
-   $display("aluresult %b", ALUResult);
+   //$display("data out %b", dataOut);
+   //$display("aluresult %b", ALUResult);
    
    
    // (ALUSrcB[1], ALUSrcB[0], SignImm22, SignImm, constant4, RDB, SrcBIn)
    
    $display("CONTROL SIGNALS");
    $display("Mem to reg enable : %b", memToReg);
+   $display("WD3 %h", WD3);
+   $display("dataOut %h", dataOut);
+   $display("ALUResult %h", ALUResult);
+   $display("PCPlus4 %h", pcPlus4);
+   
+   
    $display("Mem write enable  : %b", memWrite);
    //$display("Branch enable : %b", branchEnable);
    $display("ALUControl : %b", ALUControl);
