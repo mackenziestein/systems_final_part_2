@@ -126,7 +126,7 @@ module DataPath(clock, pcQ, instr, pcD, regWriteEnable);
    assign pc4AdderIn = pcPlus4;
    assign PCBranch = branchAdderOut;
 
-   mux4to1B32 muxBranch(1'b0, ALUResult[31], 32'b0, 32'b0, SignImm, pcPlus4, muxBranchOut);
+   mux4to1B32 muxBranch(1'b0, ALUResult[31], 32'b0, 32'b0, PCBranch, pcPlus4, muxBranchOut);
    
    
    //JUMP THINGS
@@ -193,9 +193,11 @@ always @ (negedge clock) begin
    $display("Mem to reg enable : %b", memToReg);
    $display("WD3 %h", WD3);
    $display("dataOut %h", dataOut);
-   $display("bleuOut %h", theALU.bleuOut);
+   $display("I1 %b", theALU.I1);
+   $display("I2 %b", theALU.I2);
    
-   $display("ALUResult %h", ALUResult);
+   $display("bleuOut %b", theALU.bleuOut);
+   $display("ALUResult %b", ALUResult);
    $display("PCPlus4 %h", pcPlus4);
    $display("SignImm %h", SignImm);
    $display("PCBranch %b", PCBranch);

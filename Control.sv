@@ -52,10 +52,10 @@ module Control(clock, ins, memToReg, memWrite, branchEnable, ALUControl, ALUSrc,
    assign IorD = lw2 | sw2;
    assign IRWrite = lw | sw;
    //~(lw2 | sw2);
-   assign ALUSrcA = ~branchEnable;
+   assign ALUSrcA = 1'b1;
    // nori | lw | sw | lw2 | sw2;
-   assign srcB1 = lw | sw | lw2 | sw2 | branchEnable | nori | jump;
-   assign srcB0 = branchEnable | jump;
+   assign srcB1 = lw | sw | lw2 | sw2 |  nori | jump;
+   assign srcB0 = jump;
    assign ALUSrcB = {srcB1, srcB0};
    assign PCSrc1 = branchEnable | jumpReg;
    assign PCSrc0 = jal | jumpReg;
